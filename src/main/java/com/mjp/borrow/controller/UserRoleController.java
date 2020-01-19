@@ -7,6 +7,7 @@ import com.mjp.borrow.model.UserRole;
 import com.mjp.borrow.model.dto.UserRoleConfig;
 import com.mjp.borrow.service.IUserRoleService;
 import com.mjp.borrow.utils.ControllerUtils;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,7 +27,7 @@ import java.util.List;
  * @date 2020/1/19 10:41
  */
 @RestController
-@ApiOperation("用户角色配置")
+@Api(tags = "用户角色配置")
 @RequestMapping("userRole")
 public class UserRoleController  {
     @Resource

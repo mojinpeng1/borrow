@@ -1,5 +1,6 @@
 package com.mjp.borrow.service;
 
+import com.mjp.borrow.model.UserInfo;
 import com.mjp.borrow.model.UserRole;
 
 import java.util.List;
@@ -13,4 +14,14 @@ import java.util.List;
  */
 public interface IUserRoleService {
     void configUser(List<UserRole> userRoles);
+
+    /**
+     * <p>方法名:isAdmin</p>
+     * <p>描述: 查询用户是否管理员</p>
+     * <p>创建时间: 2020/1/19 11:44</p>
+     * @param userInfo 用户
+     * @return Boolean
+     * @author mojinpeng
+     */
+    boolean isAdmin(UserInfo userInfo);
 }

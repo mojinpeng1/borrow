@@ -1,5 +1,6 @@
 package com.mjp.borrow.dao;
 
+import com.mjp.borrow.model.UserInfo;
 import com.mjp.borrow.model.UserRole;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -11,4 +12,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @date 2020/1/19 11:04
  */
 public interface IUserRoleDao extends JpaRepository<UserRole,Long> {
+    UserRole findByUserInfo(UserInfo userInfo);
 }

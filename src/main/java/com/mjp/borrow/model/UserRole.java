@@ -21,12 +21,15 @@ public class UserRole implements Serializable {
     @Column(name = "ur_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  Long urId;
+    @OneToOne
     @JoinColumn(name = "user_id",nullable = false)
     private UserInfo userInfo;
 
+    @OneToOne
     @JoinColumn(name = "role_id",nullable = false)
     private Role role;
 
+    @OneToOne
     @JoinColumn(name = "config_man",nullable = false)
     private UserInfo configMan;
 

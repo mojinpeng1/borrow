@@ -22,9 +22,11 @@ public class BorrowRecord implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  Long brId;
 
+    @OneToOne
     @JoinColumn(name = "goods_id",nullable = false)
     private GoodsInfo goodsInfo;
 
+    @OneToOne
     @JoinColumn(name = "borrow_man",nullable = false)
     private UserInfo borrowMan;
 
@@ -46,7 +48,26 @@ public class BorrowRecord implements Serializable {
     @Column(name = "out_time")
     private Date outTime;
 
-    @Column(name = "return_time")
-    private Date returnTime;
+    /**
+      *<p>已创建</p>
+      */
+    public  static final Short STATUS_CREATED = 0;
+    /**
+     *<p>已确认</p>
+     */
+    public  static final Short STATUS_CONFIRMED = 1;
+    /**
+     *<p>已借出</p>
+     */
+    public  static final Short STATUS_BORROWED = 2;
+    /**
+     *<p>已归还</p>
+     */
+    public  static final Short STATUS_RETURNED = 5;
+    /**
+     *<p>已关闭</p>
+     */
+    public  static final Short STATUS_CLOSED = 10;
+
 
 }

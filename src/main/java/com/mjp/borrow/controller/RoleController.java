@@ -3,9 +3,8 @@ package com.mjp.borrow.controller;
 import cn.hutool.core.date.DateTime;
 import com.mjp.borrow.base.ResultInfo;
 import com.mjp.borrow.model.Role;
-import com.mjp.borrow.model.UserInfo;
 import com.mjp.borrow.service.IRoleService;
-import com.mjp.borrow.utils.ControllerUtils;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
  * @date 2020/1/19 10:32
  */
 @RestController
-@ApiOperation("角色")
+@Api(tags = "角色")
 @RequestMapping("/role")
 public class RoleController {
     @Resource
