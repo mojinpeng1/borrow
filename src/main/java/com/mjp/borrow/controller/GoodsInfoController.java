@@ -32,15 +32,28 @@ public class GoodsInfoController {
     @Resource
     private IGoodsInfoService goodsInfoService;
 
-    @PostMapping("/addGoods")
+
+    // TODO 目前只提供查询所有,条件查询后期考虑,在分页查询
+    @PostMapping("list")
+    @ApiOperation(value = "查询物品")
+    public  ResultInfo list(){
+        return ResultInfo.success(goodsInfoService.getList()) ;
+    }
+
+    @PostMapping("/addOrUpdateGoods")
     @ApiOperation(value = "新建物品")
-    public ResultInfo addGoods(@RequestBody GoodsInfo goodsInfo, HttpServletRequest request){
+    public ResultInfo addOrUpdateGoods(@RequestBody GoodsInfo goodsInfo, HttpServletRequest request){
 
         AccoutInfo curAccount = ControllerUtils.getCurAccount(request);
         UserInfo user = curAccount.getUser();
-        goodsInfo.setCreateMan(user);
+
+
         goodsInfo.setUpdateMan(user);
-        goodsInfo.setLocationMan(user);
+        if(goodsInfo.getGId() == null || goodsInfo.getGId()==0){
+            goodsInfo.setCreateMan(user);
+            goodsInfo.setLocationMan(user);
+        }
+
         goodsInfo.setCreateTime(DateTime.now());
         return  ResultInfo.success(goodsInfoService.addGoods(goodsInfo));
     }
@@ -59,19 +72,22 @@ public class GoodsInfoController {
         }
     }
 
-    @GetMapping("deleteGoods/{goodsId}")
+    @PostMapping("deleteGoods")
     @ApiOperation(value = "删除物品")
-    public  ResultInfo deleteGoods(@PathVariable long goodsId){
-        goodsInfoService.deleteGoods(goodsId);
+    public  ResultInfo deleteGoods(@RequestBody GoodsInfo goodsInfo){
+        if(goodsInfo.getGId() == null){
+            throw new CommonException("未选中信息");
+        }
+        goodsInfoService.deleteGoods(goodsInfo.getGId());
         return ResultInfo.success();
     }
 
-    @PostMapping("update")
-    @ApiOperation("更新物品信息")
-    public ResultInfo update(@RequestBody GoodsInfo goodsInfo,HttpServletRequest request){
-        goodsInfo.setUpdateMan(ControllerUtils.getCurAccount(request).getUser());
-        goodsInfo.setUpdatetime(DateTime.now());
-        goodsInfoService.updateGoods(goodsInfo);
-        return  ResultInfo.success();
-    }
+//    @PostMapping("update")
+//    @ApiOperation("更新物品信息")
+//    public ResultInfo update(@RequestBody GoodsInfo goodsInfo,HttpServletRequest request){
+//        goodsInfo.setUpdateMan(ControllerUtils.getCurAccount(request).getUser());
+//        goodsInfo.setUpdatetime(DateTime.now());
+//        goodsInfoService.updateGoods(goodsInfo);
+//        return  ResultInfo.success();
+//    }
 }

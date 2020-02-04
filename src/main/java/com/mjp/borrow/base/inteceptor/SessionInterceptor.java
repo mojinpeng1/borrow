@@ -33,6 +33,7 @@ public class SessionInterceptor extends HandlerInterceptorAdapter {
             throws CommonException {
         AccoutInfo curAccount = ControllerUtils.getCurAccount( request);
         if(curAccount == null){
+
             throw new CommonException("当前账号未登录!");
         }
         return true;

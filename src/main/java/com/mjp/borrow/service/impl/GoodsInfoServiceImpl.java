@@ -7,6 +7,7 @@ import com.sun.org.apache.bcel.internal.generic.RETURN;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * <p>Description：</p>
@@ -42,5 +43,11 @@ public class GoodsInfoServiceImpl implements IGoodsInfoService {
     @Override
     public void updateGoods(GoodsInfo goodsInfo) {
         goodsInfoDao.save(goodsInfo);
+    }
+
+    @Override
+    public List<GoodsInfo> getList() {
+        List<GoodsInfo> all = goodsInfoDao.findAll();
+        return  all;
     }
 }

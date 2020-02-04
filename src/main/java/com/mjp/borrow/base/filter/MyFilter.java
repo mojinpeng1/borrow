@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
@@ -29,7 +30,14 @@ public class MyFilter   implements Filter {
         HttpServletRequest req = (HttpServletRequest)request;
         String servletPath = req.getServletPath();
         log.info("访问路径是："+servletPath);
-//        req.setCharacterEncoding("utf-8");
+        HttpServletResponse res = (HttpServletResponse)response;
+        res.setContentType("text/html;charset=UTF-8");
+        res.setHeader("Access-Control-Allow-Origin", req.getHeader("Origin"));
+        res.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
+        res.setHeader("Access-Control-Max-Age", "0");
+        res.setHeader("Access-Control-Allow-Headers", "Origin, No-Cache, X-Requested-With, If-Modified-Since, Pragma, Last-Modified, Cache-Control, Expires, Content-Type, X-E4M-With,userId,token");
+        res.setHeader("Access-Control-Allow-Credentials", "true");
+        res.setHeader("XDomainRequestAllowed","1");
         chain.doFilter(req,response);
     }
 

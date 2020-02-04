@@ -28,7 +28,10 @@ public class InterceptorConfig extends WebMvcConfigurationSupport {
         // addPathPatterns 用于添加拦截规则，/**表示拦截所有请求
         // excludePathPatterns 用户排除拦截
         registry.addInterceptor(sessionInterceptor).addPathPatterns("/**")
-                .excludePathPatterns("/doc.html","/favicon.ico", "/user/login","/user/addUser","/index","/webjars/**","/swagger-resources/**","/v2/**");
+                .excludePathPatterns("/doc.html","/favicon.ico", "/user/login","/user/addUser","/user/uploadPic",
+                        "/user/getPic",
+                        "/user/checkUser",
+                        "/index","/webjars/**","/swagger-resources/**","/v2/**");
         super.addInterceptors(registry);
     }
 
