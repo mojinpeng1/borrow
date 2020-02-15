@@ -19,6 +19,7 @@ public interface IUserRoleService {
      * <p>方法名:isAdmin</p>
      * <p>描述: 查询用户是否管理员</p>
      * <p>创建时间: 2020/1/19 11:44</p>
+     *
      * @param userInfo 用户
      * @return Boolean
      * @author mojinpeng

@@ -60,11 +60,11 @@ public class WebLogger {
             String parameter = parameterNames.nextElement();
             parameterMap.put(parameter, request.getParameter(parameter));
         }
-        log.info("请求参数是：{}",parameterMap.toString());
+        log.info("请求参数是：{}", parameterMap.toString());
     }
 
     @After("executeService()")
-    public  void returnAfter(JoinPoint joinpoint){
+    public void returnAfter(JoinPoint joinpoint) {
         log.info("AOP after");
     }
 

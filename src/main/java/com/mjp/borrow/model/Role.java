@@ -20,11 +20,11 @@ public class Role implements Serializable {
     @Id
     @Column(name = "r_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private  Long rid;
+    private Long rid;
 
-    @Column(name = "role_name",nullable = false, length = 20)
+    @Column(name = "role_name", nullable = false, length = 20)
     private String roleName;
 
-    @Column(name = "create_time",nullable = false)
+    @Column(name = "create_time", nullable = false)
     private Date createTime;
 }

@@ -19,5 +19,5 @@ import java.util.Map;
 @NoArgsConstructor
 public class Query implements Serializable {
     private Paging paging;
-    private Map<String,String> condition;
+    private Map<String, String> condition;
 }

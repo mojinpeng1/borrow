@@ -29,32 +29,32 @@ import java.util.List;
 @RestController
 @Api(tags = "用户角色配置")
 @RequestMapping("userRole")
-public class UserRoleController  {
+public class UserRoleController {
     @Resource
     private IUserRoleService userRoleService;
 
     @ApiOperation("配置用户")
     @PostMapping("configUser")
-    public ResultInfo configUser(@RequestBody UserRoleConfig userRoleConfig, HttpServletRequest request){
+    public ResultInfo configUser(@RequestBody UserRoleConfig userRoleConfig, HttpServletRequest request) {
         UserInfo user = ControllerUtils.getCurAccount(request).getUser();
-        if (userRoleConfig != null){
+        if (userRoleConfig != null) {
             List<UserRole> userRoles = trans2UserRole(userRoleConfig, user);
             userRoleService.configUser(userRoles);
         }
-        return  ResultInfo.success();
+        return ResultInfo.success();
     }
 
-    private List<UserRole> trans2UserRole(UserRoleConfig userRoleConfig, UserInfo configMan){
+    private List<UserRole> trans2UserRole(UserRoleConfig userRoleConfig, UserInfo configMan) {
         List<UserRole> userRoles = new ArrayList<>(16);
-        userRoleConfig.getUserInfoList().forEach( item -> {
+        userRoleConfig.getUserInfoList().forEach(item -> {
             UserRole userRole = new UserRole();
             userRole.setConfigMan(configMan);
             userRole.setRole(userRoleConfig.getRole());
             userRole.setUserInfo(item);
             userRole.setConfigTime(DateTime.now());
             userRoles.add(userRole);
-        } );
-        return  userRoles;
+        });
+        return userRoles;
 
     }
 }

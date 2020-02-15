@@ -1,6 +1,5 @@
 package com.mjp.borrow.service;
 
-import com.mjp.borrow.base.ResultInfo;
 import com.mjp.borrow.model.Role;
 
 /**

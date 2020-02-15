@@ -10,6 +10,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @version 1.0
  * @date 2020/1/18 18:03
  */
-public interface IGoodsInfoDao extends JpaRepository<GoodsInfo,Long> {
+public interface IGoodsInfoDao extends JpaRepository<GoodsInfo, Long> {
     GoodsInfo findByCode(String goodsCode);
 }

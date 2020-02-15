@@ -18,9 +18,10 @@ import javax.annotation.Resource;
 public class RoleServiceImpl implements IRoleService {
     @Resource
     private IRoleDao roleDao;
+
     @Override
     public Role addRole(Role role) {
-        return  roleDao.save(role);
+        return roleDao.save(role);
     }
 
     @Override

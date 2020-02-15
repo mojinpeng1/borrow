@@ -32,6 +32,14 @@ public class BorrowRecordServiceImpl implements IBorrowRecordService {
 
     @Override
     public BorrowRecord addOne(BorrowRecord borrowRecord) {
+        GoodsInfo goodsInfo = borrowRecord.getGoodsInfo();
+        UserInfo borrowMan = borrowRecord.getBorrowMan();
+        // 判断用户是否已经添加了 该物品记录
+        BorrowRecord byUserAndGoods = this.getByUserAndGoods(borrowMan, goodsInfo);
+        if (byUserAndGoods != null) {
+            throw new CommonException("已创建,无需重复借用!");
+        }
+
         return borrowRecordDao.save(borrowRecord);
     }
 
@@ -57,6 +65,7 @@ public class BorrowRecordServiceImpl implements IBorrowRecordService {
             GoodsInfo goodsInfo = borrowRecord.getGoodsInfo();
             goodsInfo.setUpdatetime(DateTime.now());
             goodsInfo.setLocationMan(goodsInfo.getUpdateMan());
+            goodsInfo.setStatus(GoodsInfo.GOODS_STATUS_NORMAL);
             goodsInfoDao.save(goodsInfo);
             return;
         }
@@ -79,6 +88,7 @@ public class BorrowRecordServiceImpl implements IBorrowRecordService {
             }
             borrowRecord.setOutTime(DateTime.now());
             borrowRecordDao.save(borrowRecord);
+            goodsInfo.setStatus(GoodsInfo.GOODS_STATUS_BORROW_OVER);
             goodsInfo.setLocationMan(borrowRecord.getBorrowMan());
             goodsInfo.setUpdatetime(DateTime.now());
             goodsInfoDao.save(goodsInfo);
@@ -90,7 +100,7 @@ public class BorrowRecordServiceImpl implements IBorrowRecordService {
     @Override
     public void confirm(Long brid, UserInfo user) {
         BorrowRecord borrowRecord = borrowRecordDao.getOne(brid);
-        if (borrowRecord != null) {
+        if (borrowRecord.getBrId() > 0) {
             if (BorrowRecord.STATUS_CREATED.equals(borrowRecord.getStatus())) {
                 borrowRecord.setStatus(BorrowRecord.STATUS_CONFIRMED);
             } else {
@@ -98,6 +108,11 @@ public class BorrowRecordServiceImpl implements IBorrowRecordService {
             }
             if (!user.equals(borrowRecord.getBorrowMan())) {
                 throw new CommonException("当前登录人员非创建人,不允许直接确认!");
+            }
+            // 如果物品被其他人借用中,就无法再次确认了
+            GoodsInfo goodsInfo = borrowRecord.getGoodsInfo();
+            if (GoodsInfo.GOODS_STATUS_INBORROW.equals(goodsInfo.getStatus())) {
+                throw new CommonException("该物品正在被其他人借用,请等待!");
             }
             borrowRecordDao.save(borrowRecord);
             return;
@@ -122,5 +137,15 @@ public class BorrowRecordServiceImpl implements IBorrowRecordService {
             return;
         }
         throw new CommonException("未找到记录!");
+    }
+
+    @Override
+    public BorrowRecord getByUserAndGoods(UserInfo userInfo, GoodsInfo goodsInfo) {
+        return borrowRecordDao.getByUserAndGoods(userInfo, goodsInfo);
+    }
+
+    @Override
+    public List<BorrowRecord> queryBorrowRecord() {
+        return borrowRecordDao.queryBorrowRecord();
     }
 }

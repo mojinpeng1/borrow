@@ -23,8 +23,8 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class Swagger2Config {
 
     @Bean
-    public Docket createRestApi(){
-        return  new Docket(DocumentationType.SWAGGER_2)
+    public Docket createRestApi() {
+        return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(new ApiInfoBuilder().title("物品领用接口文档").description("接口文档").build())
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.mjp.borrow.controller"))

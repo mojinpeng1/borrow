@@ -25,36 +25,36 @@ public class UserInfo implements Serializable {
     @Id
     @Column(name = "user_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private  Long userId;
+    private Long userId;
 
-    @Column(name = "user_name", nullable = false,length = 20)
+    @Column(name = "user_name", nullable = false, length = 20)
     private String userName;
 
-    @Column(name = "user_code",nullable = false,length = 20)
-    private  String userCode;
-    @Column(name = "nick",nullable = false,length = 20)
+    @Column(name = "user_code", nullable = false, length = 20)
+    private String userCode;
+    @Column(name = "nick", nullable = false, length = 20)
     private String nick;
-    @Column(name = "gender",nullable = false)
+    @Column(name = "gender", nullable = false)
     private Short gender;
 
-    @Column(name = "phone",nullable = false,length = 15)
-    private  String phone;
+    @Column(name = "phone", nullable = false, length = 15)
+    private String phone;
 
-    @Column(name = "email",nullable = false,length = 20)
-    private  String email;
+    @Column(name = "email", nullable = false, length = 20)
+    private String email;
 
-    @Column(name = "phone_back",length = 15)
+    @Column(name = "phone_back", length = 15)
     private String phoneBack;
 
-    @Column(name = "addr",length = 50, nullable = false)
+    @Column(name = "addr", length = 50, nullable = false)
     private String addr;
 
     @Column(name = "create_time", nullable = false)
     private Date createTime;
 
     @Column(name = "update_time")
-    private  Date updateTime;
+    private Date updateTime;
 
     @Column(name = "portrait", length = 100)
-    private  String portrait;
+    private String portrait;
 }

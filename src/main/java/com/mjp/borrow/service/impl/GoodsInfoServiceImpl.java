@@ -3,7 +3,6 @@ package com.mjp.borrow.service.impl;
 import com.mjp.borrow.dao.IGoodsInfoDao;
 import com.mjp.borrow.model.GoodsInfo;
 import com.mjp.borrow.service.IGoodsInfoService;
-import com.sun.org.apache.bcel.internal.generic.RETURN;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -20,8 +19,10 @@ import java.util.List;
 public class GoodsInfoServiceImpl implements IGoodsInfoService {
     @Resource
     private IGoodsInfoDao goodsInfoDao;
+
     @Override
     public GoodsInfo addGoods(GoodsInfo goodsInfo) {
+        goodsInfo.setStatus(GoodsInfo.GOODS_STATUS_NORMAL);
         GoodsInfo save = goodsInfoDao.save(goodsInfo);
         return save;
     }
@@ -29,8 +30,8 @@ public class GoodsInfoServiceImpl implements IGoodsInfoService {
     @Override
     public boolean checkGoods(String goodsCode) {
         GoodsInfo byCode = goodsInfoDao.findByCode(goodsCode);
-        if (byCode == null){
-            return  true;
+        if (byCode == null) {
+            return true;
         }
         return false;
     }
@@ -48,6 +49,6 @@ public class GoodsInfoServiceImpl implements IGoodsInfoService {
     @Override
     public List<GoodsInfo> getList() {
         List<GoodsInfo> all = goodsInfoDao.findAll();
-        return  all;
+        return all;
     }
 }

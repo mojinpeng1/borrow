@@ -36,46 +36,46 @@ public class GoodsInfoController {
     // TODO 目前只提供查询所有,条件查询后期考虑,在分页查询
     @PostMapping("list")
     @ApiOperation(value = "查询物品")
-    public  ResultInfo list(){
-        return ResultInfo.success(goodsInfoService.getList()) ;
+    public ResultInfo list() {
+        return ResultInfo.success(goodsInfoService.getList());
     }
 
     @PostMapping("/addOrUpdateGoods")
     @ApiOperation(value = "新建物品")
-    public ResultInfo addOrUpdateGoods(@RequestBody GoodsInfo goodsInfo, HttpServletRequest request){
+    public ResultInfo addOrUpdateGoods(@RequestBody GoodsInfo goodsInfo, HttpServletRequest request) {
 
         AccoutInfo curAccount = ControllerUtils.getCurAccount(request);
         UserInfo user = curAccount.getUser();
 
 
         goodsInfo.setUpdateMan(user);
-        if(goodsInfo.getGId() == null || goodsInfo.getGId()==0){
+        if (goodsInfo.getGId() == null || goodsInfo.getGId() == 0) {
             goodsInfo.setCreateMan(user);
             goodsInfo.setLocationMan(user);
         }
 
         goodsInfo.setCreateTime(DateTime.now());
-        return  ResultInfo.success(goodsInfoService.addGoods(goodsInfo));
+        return ResultInfo.success(goodsInfoService.addGoods(goodsInfo));
     }
 
     @GetMapping("checkGoods")
     @ApiOperation(value = "检查物品编码是否重复")
-    public ResultInfo checkGoods(@RequestParam String goodsCode){
-        if(StringUtils.isNotBlank(goodsCode)) {
-            if (goodsInfoService.checkGoods(goodsCode)){
+    public ResultInfo checkGoods(@RequestParam String goodsCode) {
+        if (StringUtils.isNotBlank(goodsCode)) {
+            if (goodsInfoService.checkGoods(goodsCode)) {
                 return ResultInfo.success();
-            }else{
+            } else {
                 return ResultInfo.error("该编码已经存在!");
             }
-        }else {
+        } else {
             throw new CommonException("参数异常!");
         }
     }
 
     @PostMapping("deleteGoods")
     @ApiOperation(value = "删除物品")
-    public  ResultInfo deleteGoods(@RequestBody GoodsInfo goodsInfo){
-        if(goodsInfo.getGId() == null){
+    public ResultInfo deleteGoods(@RequestBody GoodsInfo goodsInfo) {
+        if (goodsInfo.getGId() == null) {
             throw new CommonException("未选中信息");
         }
         goodsInfoService.deleteGoods(goodsInfo.getGId());

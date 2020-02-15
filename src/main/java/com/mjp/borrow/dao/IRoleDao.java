@@ -10,5 +10,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @version 1.0
  * @date 2020/1/19 10:38
  */
-public interface IRoleDao extends JpaRepository<Role,Long> {
+public interface IRoleDao extends JpaRepository<Role, Long> {
 }

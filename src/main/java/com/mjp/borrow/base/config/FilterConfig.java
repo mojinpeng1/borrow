@@ -20,7 +20,7 @@ public class FilterConfig {
     private MyFilter myFilter;
 
     @Bean
-    public FilterRegistrationBean registerAuthFilter(){
+    public FilterRegistrationBean registerAuthFilter() {
         FilterRegistrationBean registrationBean = new FilterRegistrationBean();
         registrationBean.setFilter(myFilter);
         registrationBean.addUrlPatterns("/*");

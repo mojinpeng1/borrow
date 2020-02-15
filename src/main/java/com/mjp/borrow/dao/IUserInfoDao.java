@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @version 1.0
  * @date 2020/1/18 14:56
  */
-public interface IUserInfoDao extends JpaRepository<UserInfo,Long> {
+public interface IUserInfoDao extends JpaRepository<UserInfo, Long> {
 
     UserInfo findByUserCode(String userCode);
 }

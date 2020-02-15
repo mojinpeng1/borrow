@@ -23,16 +23,15 @@ import javax.servlet.http.HttpServletResponse;
 public class SessionInterceptor extends HandlerInterceptorAdapter {
 
 
-
     /**
-      *<p>拦截于请求刚进入时，进行判断，需要boolean返回值，
+     * <p>拦截于请求刚进入时，进行判断，需要boolean返回值，
      * 如果返回true将继续执行，如果返回false，将不进行执行。一般用于登录校验。</p>
-      */
+     */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws CommonException {
-        AccoutInfo curAccount = ControllerUtils.getCurAccount( request);
-        if(curAccount == null){
+        AccoutInfo curAccount = ControllerUtils.getCurAccount(request);
+        if (curAccount == null) {
 
             throw new CommonException("当前账号未登录!");
         }

@@ -21,34 +21,33 @@ public class AccoutInfo implements Serializable {
     @Id
     @Column(name = "acc_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private  Long accId;
+    private Long accId;
 
     @OneToOne
     @JoinColumn(name = "user", nullable = false)
-    private  UserInfo user;
+    private UserInfo user;
 
-    @Column(name = "account",nullable = false,length = 20)
-    private  String account;
+    @Column(name = "account", nullable = false, length = 20)
+    private String account;
 
     @JsonIgnore
-    @Column(name = "password",nullable = false,length = 20)
-    private  String password;
+    @Column(name = "password", nullable = false, length = 20)
+    private String password;
 
 
-
-    @Column(name = "status",nullable = false)
-    private  Short status;
+    @Column(name = "status", nullable = false)
+    private Short status;
 
     @Column(name = "last_login_time")
     private Date lastLoginTime;
 
     /**
-      *<p>在职</p>
-      */
-    public static final  Short STATUS_INWORK = 0;
+     * <p>在职</p>
+     */
+    public static final Short STATUS_INWORK = 0;
 
     /**
-      *<p>离职</p>
-      */
-    public  static final  Short STATUS_OUTWORK = 1;
+     * <p>离职</p>
+     */
+    public static final Short STATUS_OUTWORK = 1;
 }

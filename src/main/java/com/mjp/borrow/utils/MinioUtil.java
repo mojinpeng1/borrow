@@ -1,18 +1,15 @@
 package com.mjp.borrow.utils;
 
 import com.mjp.borrow.base.exception.CommonException;
-import com.mjp.borrow.properties.BorrowProperties;
 import io.minio.MinioClient;
 import io.minio.errors.*;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 import org.xmlpull.v1.XmlPullParserException;
 
-import javax.annotation.Resource;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.InvalidKeyException;
@@ -42,8 +39,8 @@ public class MinioUtil {
      * @return MinioClient
      * @author mojinpeng
      */
-    @Autowired
-    private BorrowProperties borrowProperties;
+//    @Autowired
+//    private BorrowProperties borrowProperties;
     @Value("${example.borrow.minio.url}")
     private String url;
     @Value("${example.borrow.minio.account}")
@@ -55,7 +52,7 @@ public class MinioUtil {
         try {
 //            MinioClient client = new MinioClient(borrowProperties.getMinio().getUrl(),
 //                    borrowProperties.getMinio().getAccount(), borrowProperties.getMinio().getPass());
-            MinioClient client = new MinioClient("http://101.133.136.205:9000/","minioadmin","minioadmin");
+            MinioClient client = new MinioClient("http://101.133.136.205:9000/", "minioadmin", "minioadmin");
             return client;
         } catch (Exception e) {
             e.printStackTrace();
@@ -90,19 +87,20 @@ public class MinioUtil {
      * <p>方法名:uploadToBucket</p>
      * <p>描述: 上传文件到bucket中</p>
      * <p>创建时间: 2020/2/1 13:10</p>
-     * @param conn  minio连接对象
-     * @param file  上传的文件  基础web文件上传
-     * @param bucketName  上传的路径
+     *
+     * @param conn       minio连接对象
+     * @param file       上传的文件  基础web文件上传
+     * @param bucketName 上传的路径
      * @author mojinpeng
      */
     public boolean uploadToBucket(MinioClient conn, MultipartFile file, String bucketName) {
-        if (conn == null){
+        if (conn == null) {
             conn = getConn();
         }
         String name = file.getOriginalFilename();
-        checkOrCreateBucket(conn,bucketName);
+        checkOrCreateBucket(conn, bucketName);
         try {
-            conn.putObject(bucketName,name,file.getInputStream(),file.getSize(),APPLICATION_STREAM);
+            conn.putObject(bucketName, name, file.getInputStream(), file.getSize(), APPLICATION_STREAM);
         } catch (InvalidBucketNameException e) {
             e.printStackTrace();
             throw new CommonException("不合法的存储桶名称。");
@@ -142,7 +140,7 @@ public class MinioUtil {
             e.printStackTrace();
             throw new CommonException("参数异常。");
         }
-        return  true;
+        return true;
 
     }
 
@@ -150,36 +148,37 @@ public class MinioUtil {
      * <p>方法名:removeObject</p>
      * <p>描述: 删除文件</p>
      * <p>创建时间: 2020/2/1 13:19</p>
-     * @param conn 连接对象
-     * @param bucketName  文件夹
-     * @param objectName  文件名
      *
+     * @param conn       连接对象
+     * @param bucketName 文件夹
+     * @param objectName 文件名
      * @return boolean
      * @author mojinpeng
      */
     public boolean removeObject(MinioClient conn, String bucketName, String objectName) throws IOException, InvalidKeyException, NoSuchAlgorithmException, InsufficientDataException, InternalException, NoResponseException, InvalidBucketNameException, XmlPullParserException, ErrorResponseException {
-        if (conn == null){
+        if (conn == null) {
             conn = getConn();
         }
         boolean b = conn.bucketExists(bucketName);
         if (b) {
-            conn.removeObject(bucketName,objectName);
-        }else{
-            throw new CommonException(String.format("%s 该bucket不存在!",bucketName));
+            conn.removeObject(bucketName, objectName);
+        } else {
+            throw new CommonException(String.format("%s 该bucket不存在!", bucketName));
         }
-        return  true;
+        return true;
     }
 
     /**
      * <p>方法名:getObject</p>
      * <p>描述: 获取对象</p>
      * <p>创建时间: 2020/2/1 14:07</p>
+     *
      * @param conn
      * @return InputStream
      * @author mojinpeng
      */
-    public InputStream getObject(MinioClient conn,String bucketName,String objectName){
-        if (conn == null){
+    public InputStream getObject(MinioClient conn, String bucketName, String objectName) {
+        if (conn == null) {
             conn = getConn();
         }
         InputStream object = null;
@@ -224,7 +223,7 @@ public class MinioUtil {
             e.printStackTrace();
             throw new CommonException("参数异常。");
         }
-        return  object;
+        return object;
 
     }
 }

@@ -11,7 +11,7 @@ import lombok.Data;
  * @date 2020/1/18 16:15
  */
 @Data
-public class LoginUser  {
+public class LoginUser {
     @ApiModelProperty(required = true)
     private String loginName;
 

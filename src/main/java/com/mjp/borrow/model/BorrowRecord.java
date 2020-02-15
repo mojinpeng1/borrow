@@ -20,21 +20,21 @@ public class BorrowRecord implements Serializable {
     @Id
     @Column(name = "br_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private  Long brId;
+    private Long brId;
 
     @OneToOne
-    @JoinColumn(name = "goods_id",nullable = false)
+    @JoinColumn(name = "goods_id", nullable = false)
     private GoodsInfo goodsInfo;
 
     @OneToOne
-    @JoinColumn(name = "borrow_man",nullable = false)
+    @JoinColumn(name = "borrow_man", nullable = false)
     private UserInfo borrowMan;
 
     @Column(name = "borrow_time", nullable = false)
     private Date borrowTime;
 
     @Column(name = "borrow_reason", length = 100)
-    private  String borrowReason;
+    private String borrowReason;
 
     @Column(name = "expect_return", nullable = false)
     private Date expectReturn;
@@ -42,32 +42,32 @@ public class BorrowRecord implements Serializable {
     @Column(name = "actual_return")
     private Date acturalReturn;
 
-    @Column(name = "status",nullable = false)
+    @Column(name = "status", nullable = false)
     private Short status = 0;
 
     @Column(name = "out_time")
     private Date outTime;
 
     /**
-      *<p>已创建</p>
-      */
-    public  static final Short STATUS_CREATED = 0;
-    /**
-     *<p>已确认</p>
+     * <p>已创建</p>
      */
-    public  static final Short STATUS_CONFIRMED = 1;
+    public static final Short STATUS_CREATED = 0;
     /**
-     *<p>已借出</p>
+     * <p>已确认</p>
      */
-    public  static final Short STATUS_BORROWED = 2;
+    public static final Short STATUS_CONFIRMED = 1;
     /**
-     *<p>已归还</p>
+     * <p>已借出</p>
      */
-    public  static final Short STATUS_RETURNED = 5;
+    public static final Short STATUS_BORROWED = 2;
     /**
-     *<p>已关闭</p>
+     * <p>已归还</p>
      */
-    public  static final Short STATUS_CLOSED = 10;
+    public static final Short STATUS_RETURNED = 5;
+    /**
+     * <p>已关闭</p>
+     */
+    public static final Short STATUS_CLOSED = 10;
 
 
 }

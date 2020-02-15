@@ -8,6 +8,7 @@
         <version>2.2.3.BUILD-SNAPSHOT</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
+    <packaging>war</packaging>
     <groupId>com.mjp</groupId>
     <artifactId>borrow</artifactId>
     <version>0.0.1-SNAPSHOT</version>
@@ -62,17 +63,16 @@
         </dependency>
 
         <!--Spring session data redis-->
-        <dependency>
-            <groupId>org.springframework.session</groupId>
-            <artifactId>spring-session-data-redis</artifactId>
-            <!--<version>2.1.4.RELEASE</version>-->
-        </dependency>
+        <!--<dependency>-->
+        <!--<groupId>org.springframework.session</groupId>-->
+        <!--<artifactId>spring-session-data-redis</artifactId>-->
+        <!--</dependency>-->
         <!--Lettuce是 一 个 基 于 Netty的 NIO方 式 处 理 Redis的 技 术 -->
-        <dependency>
-            <groupId>io.lettuce</groupId>
-            <artifactId>lettuce-core</artifactId>
-        </dependency>
-<!--文件上传服务-->
+        <!--<dependency>-->
+        <!--<groupId>io.lettuce</groupId>-->
+        <!--<artifactId>lettuce-core</artifactId>-->
+        <!--</dependency>-->
+        <!--文件上传服务-->
         <dependency>
             <groupId>io.minio</groupId>
             <artifactId>minio</artifactId>
@@ -129,14 +129,14 @@
         </dependency>
 
         <dependency>
-        <groupId>org.apache.commons</groupId>
-        <artifactId>commons-lang3</artifactId>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
         </dependency>
 
         <dependency>
-        <groupId>commons-io</groupId>
-        <artifactId>commons-io</artifactId>
-        <version>2.5</version>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.5</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -151,13 +151,43 @@
         </dependency>
     </dependencies>
 
+
+
+
     <build>
+        <!-- 最终构建之后的名称 -->
+        <finalName>borrow</finalName>
+        <defaultGoal>compile</defaultGoal>
         <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
+
+
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                </plugin>
+
+
+
         </plugins>
+
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.properties</include>
+                    <include>**/*.xml</include>
+                </includes>
+                <filtering>false</filtering>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*.*</include>
+                </includes>
+                <filtering>false</filtering>
+            </resource>
+        </resources>
+
     </build>
 
     <repositories>

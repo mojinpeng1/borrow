@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
  * @date 2020/1/17 14:13
  */
 @RestControllerAdvice
-public class CommonExceptionHandler{
+public class CommonExceptionHandler {
 
     @ExceptionHandler(value = CommonException.class)
-    public ResultInfo err(CommonException ex){
-        return  ResultInfo.error(ex.getMessage());
+    public ResultInfo err(CommonException ex) {
+        return ResultInfo.error(ex.getMessage());
     }
 
 }

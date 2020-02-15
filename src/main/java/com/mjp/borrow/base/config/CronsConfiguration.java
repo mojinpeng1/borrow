@@ -16,18 +16,18 @@ import org.springframework.web.filter.CorsFilter;
  */
 @Configuration
 public class CronsConfiguration {
-    private CorsConfiguration buildConfig(){
+    private CorsConfiguration buildConfig() {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
         corsConfiguration.addAllowedOrigin("*");
         corsConfiguration.addAllowedHeader("*");
         corsConfiguration.addAllowedMethod("*");
-        return  corsConfiguration;
+        return corsConfiguration;
     }
 
     @Bean
-    public CorsFilter corsFilter(){
+    public CorsFilter corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**",buildConfig());
-        return  new CorsFilter(source);
+        source.registerCorsConfiguration("/**", buildConfig());
+        return new CorsFilter(source);
     }
 }

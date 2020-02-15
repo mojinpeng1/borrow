@@ -8,10 +8,8 @@ import com.mjp.borrow.model.UserInfo;
 import com.mjp.borrow.service.IBorrowRecordService;
 import com.mjp.borrow.service.IUserRoleService;
 import com.mjp.borrow.utils.ControllerUtils;
-import com.sun.org.apache.bcel.internal.generic.NEW;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.omg.PortableInterceptor.RequestInfo;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -38,59 +36,66 @@ public class BorrowRecordController {
     @PostMapping("addOne")
     @ApiOperation("新增一条借用记录")
     // TODO 该处需要修改(比如借的产品现在是什么状态)
-    public ResultInfo addOne(@RequestBody BorrowRecord borrowRecord, HttpServletRequest request){
+    public ResultInfo addOne(@RequestBody BorrowRecord borrowRecord, HttpServletRequest request) {
         UserInfo user = ControllerUtils.getCurAccount(request).getUser();
-        if(borrowRecord == null){
+        if (borrowRecord == null) {
             throw new CommonException("参数异常");
         }
         borrowRecord.setBorrowMan(user);
         borrowRecord.setBorrowTime(DateTime.now());
         borrowRecord.setStatus(BorrowRecord.STATUS_CREATED);
-        return  ResultInfo.success(borrowRecordService.addOne(borrowRecord));
+        return ResultInfo.success(borrowRecordService.addOne(borrowRecord));
     }
 
     @PostMapping("queryBorrow")
     @ApiOperation("查询借用记录")
     // TODO 有时间需要做条件查询
-    public ResultInfo queryBorrow(HttpServletRequest request){
+    public ResultInfo queryBorrow(HttpServletRequest request) {
         //如果管理员角色查询所有,如果是普通用户只能查询自己的
         UserInfo user = ControllerUtils.getCurAccount(request).getUser();
         boolean admin = userRoleService.isAdmin(user);
-        if(admin){
+        if (admin) {
             return ResultInfo.success(borrowRecordService.queryAll());
-        }else{
+        } else {
             return ResultInfo.success(borrowRecordService.queryBorrow(user));
         }
     }
 
-    @GetMapping("closeBorrow/{brid}")
+    @PostMapping("queryBorrowRecord")
+    @ApiOperation("查询以前的借用记录")
+    public ResultInfo queryBorrowRecord(HttpServletRequest request) {
+        return ResultInfo.success(borrowRecordService.queryBorrowRecord());
+    }
+
+    @GetMapping("closeBorrow")
     @ApiOperation("关闭借用")
-    public ResultInfo closeBorrow(@PathVariable Long brid, HttpServletRequest request){
+    public ResultInfo closeBorrow(@RequestParam Long brid, HttpServletRequest request) {
         UserInfo user = ControllerUtils.getCurAccount(request).getUser();
-        borrowRecordService.closeBorrow(brid,user);
+        borrowRecordService.closeBorrow(brid, user);
         return ResultInfo.success();
     }
-    @GetMapping("confirm/{brid}")
+
+    @GetMapping("confirm")
     @ApiOperation("确认借用")
-    public ResultInfo confirm(@PathVariable Long brid, HttpServletRequest request){
+    public ResultInfo confirm(@RequestParam Long brid, HttpServletRequest request) {
         UserInfo user = ControllerUtils.getCurAccount(request).getUser();
-        borrowRecordService.confirm(brid,user);
+        borrowRecordService.confirm(brid, user);
         return ResultInfo.success();
     }
 
-    @GetMapping("confirmOut/{brid}")
+    @GetMapping("confirmOut")
     @ApiOperation("确认借出")
-    public  ResultInfo confirmOut(@PathVariable Long brid, HttpServletRequest request){
+    public ResultInfo confirmOut(@RequestParam Long brid, HttpServletRequest request) {
         UserInfo user = ControllerUtils.getCurAccount(request).getUser();
-        borrowRecordService.confirmOut(brid,user);
+        borrowRecordService.confirmOut(brid, user);
         return ResultInfo.success();
     }
 
-    @GetMapping("reback/{brid}")
+    @GetMapping("reback")
     @ApiOperation("归还")
-    public  ResultInfo reback(@PathVariable Long brid, HttpServletRequest request){
+    public ResultInfo reback(@RequestParam Long brid, HttpServletRequest request) {
         UserInfo user = ControllerUtils.getCurAccount(request).getUser();
-        borrowRecordService.reback(brid,user);
+        borrowRecordService.reback(brid, user);
         return ResultInfo.success();
     }
 

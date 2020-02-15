@@ -32,6 +32,9 @@ public class GoodsInfo implements Serializable {
     @Column(name = "code", nullable = false)
     private String code;
 
+    @Column(name = "status", nullable = false)
+    private Short status;
+
     @Column(name = "createtime", nullable = false)
     private Date createTime;
 
@@ -47,6 +50,18 @@ public class GoodsInfo implements Serializable {
     @OneToOne
     @JoinColumn(name = "location_man")
     private UserInfo locationMan;
+    /**
+     * <p>正常</p>
+     */
+    public static Short GOODS_STATUS_NORMAL = 0;
+    /**
+     * <p>借用中</p>
+     */
+    public static Short GOODS_STATUS_INBORROW = 1;
+    /**
+     * <p>已借出</p>
+     */
+    public static Short GOODS_STATUS_BORROW_OVER = 2;
 
 
 }

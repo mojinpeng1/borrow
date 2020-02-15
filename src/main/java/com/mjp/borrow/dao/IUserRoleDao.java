@@ -11,6 +11,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @version 1.0
  * @date 2020/1/19 11:04
  */
-public interface IUserRoleDao extends JpaRepository<UserRole,Long> {
+public interface IUserRoleDao extends JpaRepository<UserRole, Long> {
     UserRole findByUserInfo(UserInfo userInfo);
 }

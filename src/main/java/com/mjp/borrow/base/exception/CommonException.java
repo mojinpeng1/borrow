@@ -11,7 +11,7 @@ import lombok.Data;
  * @date 2020/1/17 14:12
  */
 @Data
-public class CommonException extends RuntimeException{
+public class CommonException extends RuntimeException {
 
     private int errorCode;
 

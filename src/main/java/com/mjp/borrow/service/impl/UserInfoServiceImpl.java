@@ -25,28 +25,29 @@ public class UserInfoServiceImpl implements IUserInfoService {
     private IUserInfoDao userInfoDao;
     @Resource
     private IAccountInfoDao accountInfoDao;
+
     @Override
     public UserInfo addUser(UserDto userDto) {
         UserInfo userInfo = userInfoDao.save(userDto.buildUser());
         AccoutInfo accoutInfo = userDto.buildAccount();
         accoutInfo.setUser(userInfo);
         accountInfoDao.save(accoutInfo);
-        return  userInfo;
+        return userInfo;
 
     }
 
     @Override
     public UserInfo checkUser(String userCode) {
         UserInfo userInfo = userInfoDao.findByUserCode(userCode);
-        return  userInfo;
+        return userInfo;
     }
 
     @Override
     public AccoutInfo login(LoginUser loginUser) {
         AccoutInfo byAccount = accountInfoDao.findByAccount(loginUser.getLoginName());
-        if(byAccount.getPassword().equals(loginUser.getPassword())){
+        if (byAccount.getPassword().equals(loginUser.getPassword())) {
             return byAccount;
-        }else{
+        } else {
             throw new CommonException("登录失败！");
         }
     }

@@ -26,7 +26,7 @@ public class ResultInfo implements Serializable {
      */
     private Object data;
 
-    public static ResultInfo success(){
+    public static ResultInfo success() {
         return new ResultInfo(ResultCode.SUCCESS);
     }
 
@@ -36,9 +36,10 @@ public class ResultInfo implements Serializable {
         return resultInfo;
     }
 
-    public  static ResultInfo error(){
-        return  new ResultInfo(ResultCode.ERROR);
+    public static ResultInfo error() {
+        return new ResultInfo(ResultCode.ERROR);
     }
+
     public static ResultInfo error(String msg) {
         ResultInfo resultInfo = error();
         resultInfo.setMsg(msg);
@@ -49,6 +50,6 @@ public class ResultInfo implements Serializable {
     public ResultInfo(ResultCode resultCode) {
         this.code = resultCode.getCode();
         this.msg = resultCode.getMessage();
-        this.data= null;
+        this.data = null;
     }
 }

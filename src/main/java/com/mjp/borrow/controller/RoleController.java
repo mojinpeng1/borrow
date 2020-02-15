@@ -24,18 +24,19 @@ import javax.servlet.http.HttpServletRequest;
 public class RoleController {
     @Resource
     private IRoleService roleService;
+
     @PostMapping("/addRole")
     @ApiOperation("添加角色")
-    public ResultInfo addRole(@RequestBody Role role, HttpServletRequest request){
+    public ResultInfo addRole(@RequestBody Role role, HttpServletRequest request) {
         role.setCreateTime(DateTime.now());
-        Role role1 =  roleService.addRole(role);
-        return  ResultInfo.success(role1);
+        Role role1 = roleService.addRole(role);
+        return ResultInfo.success(role1);
     }
 
     @GetMapping("deleteRole/{roleId}")
     @ApiOperation("删除角色")
-    public  ResultInfo deleteRole(@PathVariable Long roleId){
+    public ResultInfo deleteRole(@PathVariable Long roleId) {
         roleService.deleteRole(roleId);
-        return  ResultInfo.success();
+        return ResultInfo.success();
     }
 }
